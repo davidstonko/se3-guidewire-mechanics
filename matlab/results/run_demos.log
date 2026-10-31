@@ -1,0 +1,66 @@
+31-Oct-2026 14:55:21   MATLAB 25.2.0.3150157 (R2025b) Update 4
+Derivative check
+relative error  gradient 2.88e-09   Jacobian 4.10e-09   Jacobian(eq) 2.08e-09   Hessian 1.75e-09
+Base case, tip 120 mm into the aorta
+  rigid vessel  B =   291.0   flag 1   E = 8.320014   0.7 s
+  rigid vessel  B =  1849.0   flag 1   E = 52.863330   0.3 s
+  rigid vessel  B =  4856.6   flag 1   E = 138.843063   0.3 s
+  relax  log10(k/kbar h) = 1.500   flag 1   E = 135.603443   0.3 s
+  relax  log10(k/kbar h) = 1.000   flag 1   E = 131.757488   0.6 s
+  relax  log10(k/kbar h) = 0.500   flag 2   E = 124.770326   4.5 s
+  relax  log10(k/kbar h) = 0.000   flag 1   E = 114.145548   7.0 s
+  tip   90 mm   flag 1   E = 114.1455   peak 5.7305   F = 6.210   tip force 0.000   0.3 s
+  tip   60 mm   flag 1   E = 114.1432   peak 5.7307   F = 6.211   tip force 0.204   0.2 s
+  tip   30 mm   flag 2 (no converged solution)   2.4 s
+  tip    0 mm   flag 2 (no converged solution)   1.6 s
+  tip  150 mm   flag 1   E = 114.1455   peak 5.7305   F = 6.210   tip force 0.000   0.3 s
+  tip  180 mm   flag 1   E = 114.1455   peak 5.7305   F = 6.210   tip force 0.000   0.3 s
+
+Audit of the saved equilibria
+results/base.mat
+  max lumen violation -1.84e-07 mm^2, max edge-length error 2.73e-14 mm
+  max vessel displacement 5.730 mm, max wire node move from the State 1 centerline 21.038 mm (box bound 25 mm)
+  arc 1 (inner): kappa toward wall [0.0179, 0.0215] 1/mm, kappa'' inside [-3.41e-05, -3.19e-05], line load inside [0.134, 0.144] N/mm
+  arc 2 (inner): kappa toward wall [0.0139, 0.0182] 1/mm, kappa'' inside [-3.96e-05, -2.47e-05], line load inside [0.111, 0.178] N/mm
+  arc 3 (outer): kappa toward wall [-0.0098, -0.0088] 1/mm, kappa'' inside (arc too short), line load inside (arc too short) N/mm
+  arc 4 (aorta): kappa toward wall [-0.0035, -0.0000] 1/mm, kappa'' inside [-4.64e-06, 3.16e-09], line load inside [0.000, 0.023] N/mm
+  wall reaction 6.2101 N (multipliers) vs 6.2216 N (line load, H = 0), 0.19%
+  |H| after the first edge < 0.0194 N
+results/tip90.mat
+  max lumen violation -9.21e-09 mm^2, max edge-length error 6.57e-14 mm
+  max vessel displacement 5.730 mm, max wire node move from the State 1 centerline 21.038 mm (box bound 25 mm)
+  arc 1 (inner): kappa toward wall [0.0179, 0.0215] 1/mm, kappa'' inside [-3.41e-05, -3.19e-05], line load inside [0.134, 0.144] N/mm
+  arc 2 (inner): kappa toward wall [0.0139, 0.0182] 1/mm, kappa'' inside [-3.96e-05, -2.47e-05], line load inside [0.111, 0.178] N/mm
+  arc 3 (outer): kappa toward wall [-0.0098, -0.0088] 1/mm, kappa'' inside (arc too short), line load inside (arc too short) N/mm
+  arc 4 (aorta): kappa toward wall [-0.0035, -0.0000] 1/mm, kappa'' inside [-4.68e-06, 1.29e-08], line load inside [0.000, 0.023] N/mm
+  wall reaction 6.2101 N (multipliers) vs 6.2216 N (line load, H = 0), 0.19%
+  |H| after the first edge < 0.0194 N
+results/tip60.mat
+  max lumen violation -9.21e-09 mm^2, max edge-length error 2.11e-14 mm
+  max vessel displacement 5.731 mm, max wire node move from the State 1 centerline 21.042 mm (box bound 25 mm)
+  arc 1 (inner): kappa toward wall [0.0179, 0.0215] 1/mm, kappa'' inside [-3.41e-05, -3.19e-05], line load inside [0.134, 0.144] N/mm
+  arc 2 (inner): kappa toward wall [0.0139, 0.0182] 1/mm, kappa'' inside [-3.96e-05, -2.47e-05], line load inside [0.111, 0.178] N/mm
+  arc 3 (outer): kappa toward wall [-0.0098, -0.0088] 1/mm, kappa'' inside (arc too short), line load inside (arc too short) N/mm
+  arc 4 (aorta): kappa toward wall [-0.0035, -0.0004] 1/mm, kappa'' inside [-5.59e-06, 1.32e-08], line load inside [-0.000, 0.027] N/mm
+  arc 5 (outer): kappa toward wall [-0.0000, -0.0000] 1/mm, kappa'' inside (arc too short), line load inside (arc too short) N/mm
+  wall reaction 6.2115 N (multipliers) vs 6.0196 N (line load, H = 0), 3.09%
+  |H| after the first edge < 0.0204 N
+results/tip150.mat
+  max lumen violation -1.84e-07 mm^2, max edge-length error 4.88e-14 mm
+  max vessel displacement 5.730 mm, max wire node move from the State 1 centerline 21.038 mm (box bound 25 mm)
+  arc 1 (inner): kappa toward wall [0.0179, 0.0215] 1/mm, kappa'' inside [-3.41e-05, -3.19e-05], line load inside [0.134, 0.144] N/mm
+  arc 2 (inner): kappa toward wall [0.0139, 0.0182] 1/mm, kappa'' inside [-3.96e-05, -2.47e-05], line load inside [0.111, 0.178] N/mm
+  arc 3 (outer): kappa toward wall [-0.0098, -0.0088] 1/mm, kappa'' inside (arc too short), line load inside (arc too short) N/mm
+  arc 4 (aorta): kappa toward wall [-0.0035, -0.0000] 1/mm, kappa'' inside [-4.64e-06, 3.16e-09], line load inside [0.000, 0.023] N/mm
+  wall reaction 6.2101 N (multipliers) vs 6.2216 N (line load, H = 0), 0.19%
+  |H| after the first edge < 0.0194 N
+results/tip180.mat
+  max lumen violation -1.84e-07 mm^2, max edge-length error 4.29e-14 mm
+  max vessel displacement 5.730 mm, max wire node move from the State 1 centerline 21.038 mm (box bound 25 mm)
+  arc 1 (inner): kappa toward wall [0.0179, 0.0215] 1/mm, kappa'' inside [-3.41e-05, -3.19e-05], line load inside [0.134, 0.144] N/mm
+  arc 2 (inner): kappa toward wall [0.0139, 0.0182] 1/mm, kappa'' inside [-3.96e-05, -2.47e-05], line load inside [0.111, 0.178] N/mm
+  arc 3 (outer): kappa toward wall [-0.0098, -0.0088] 1/mm, kappa'' inside (arc too short), line load inside (arc too short) N/mm
+  arc 4 (aorta): kappa toward wall [-0.0035, -0.0000] 1/mm, kappa'' inside [-4.64e-06, 3.16e-09], line load inside [0.000, 0.023] N/mm
+  wall reaction 6.2101 N (multipliers) vs 6.2216 N (line load, H = 0), 0.19%
+  |H| after the first edge < 0.0194 N
+done

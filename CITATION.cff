@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the paper and this software."
+title: "se3-guidewire-mechanics: MATLAB code for guidewire-vessel mechanics on SE(3)"
+version: 1.0.0
+date-released: 2026-10-31
+license: MIT
+repository-code: "https://github.com/davidstonko/se3-guidewire-mechanics"
+authors:
+  - family-names: Stonko
+    given-names: David P.
+    affiliation: "Division of Vascular Surgery and Endovascular Therapy, Johns Hopkins University School of Medicine"
+keywords:
+  - elastic rods
+  - unilateral contact
+  - configurational forces
+  - guidewire
+  - endovascular aneurysm repair
+preferred-citation:
+  type: article
+  title: "Solving the Wire Stiffening Problem: Guidewire-vessel mechanics on SE(3)"
+  authors:
+    - family-names: Stonko
+      given-names: David P.
+  year: 2026
+  notes: "Manuscript submitted to Proceedings of the Royal Society A."
