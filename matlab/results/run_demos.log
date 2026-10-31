@@ -1,14 +1,14 @@
-31-Oct-2026 16:22:05   MATLAB 25.2.0.3150157 (R2025b) Update 4
+31-Oct-2026 16:48:27   MATLAB 25.2.0.3150157 (R2025b) Update 4
 Derivative check
 relative error  gradient 2.88e-09   Jacobian 4.10e-09   Jacobian(eq) 2.08e-09   Hessian 1.75e-09
 Base case, tip 120 mm into the aorta
-  rigid vessel  B =   291.0   flag 1   E = 8.320014   0.6 s
+  rigid vessel  B =   291.0   flag 1   E = 8.320014   0.7 s
   rigid vessel  B =  1849.0   flag 1   E = 52.863330   0.3 s
   rigid vessel  B =  4856.6   flag 1   E = 138.843063   0.2 s
-  relax  log10(k/kbar h) = 1.500   flag 1   E = 135.603443   0.2 s
-  relax  log10(k/kbar h) = 1.000   flag 1   E = 131.757488   0.5 s
-  relax  log10(k/kbar h) = 0.500   flag 2   E = 124.770326   4.0 s
-  relax  log10(k/kbar h) = 0.000   flag 1   E = 114.145548   4.3 s
+  relax  log10(k/kbar h) = 1.500   flag 1   E = 135.603443   0.3 s
+  relax  log10(k/kbar h) = 1.000   flag 1   E = 131.757488   0.6 s
+  relax  log10(k/kbar h) = 0.500   flag 2   E = 124.770326   4.2 s
+  relax  log10(k/kbar h) = 0.000   flag 1   E = 114.145548   4.6 s
   rigid vessel: wall reaction 11.262 N, contacts:
     s =   44.7 to   44.7 mm   inner  4.317 N
     s =  126.2 to  127.8 mm   inner  4.567 N
@@ -19,12 +19,44 @@ Base case, tip 120 mm into the aorta
     s =  110.3 to  129.4 mm   inner  3.083 N
     s =  169.4 to  174.2 mm   outer  0.207 N
     s =  203.0 to  254.1 mm   aorta  0.910 N
+  KKT diagnostics, rigid vessel
+    LICQ: 235 active rows, 862 unknowns, smallest singular value 1.705e-02 (condition 8.3e+01)
+    second order: min eigenvalue of the reduced Hessian 5.039e-02 N/mm (strongly active, dim 627), 5.039e-02 N/mm (all active, dim 627)
+    box bounds: smallest margin 11.23 mm
+    vessel polygon: min local radius 22.6 mm, min half-chord 14.3 mm, delta_max 9.56 mm
+    Proposition 3.2.3: contacts project to sigma in [47.7, 315.2] of [0, 385.1] mm, opposite-wall pairs 0
+  KKT diagnostics, deformable vessel
+    LICQ: 255 active rows, 862 unknowns, smallest singular value 1.476e-02 (condition 9.6e+01)
+    second order: min eigenvalue of the reduced Hessian 3.791e-03 N/mm (strongly active, dim 607), 3.791e-03 N/mm (all active, dim 607)
+    box bounds: smallest margin 4.76 mm
+    vessel polygon: min local radius 18.1 mm, min half-chord 14.6 mm, delta_max 9.56 mm
+    Proposition 3.2.3: contacts project to sigma in [39.2, 268.1] of [0, 376.4] mm, opposite-wall pairs 0
   tip   90 mm   flag 1   E = 114.1455   peak 5.7305   F = 6.210   tip force 0.000   0.2 s
+    LICQ: 236 active rows, 824 unknowns, smallest singular value 1.590e-02 (condition 8.9e+01)
+    second order: min eigenvalue of the reduced Hessian 4.648e-03 N/mm (strongly active, dim 592), 4.653e-03 N/mm (all active, dim 588)
+    box bounds: smallest margin 19.33 mm
+    vessel polygon: min local radius 18.1 mm, min half-chord 14.6 mm, delta_max 9.56 mm
+    Proposition 3.2.3: contacts project to sigma in [39.2, 268.1] of [0, 376.4] mm, opposite-wall pairs 0
   tip   60 mm   flag 1   E = 114.1432   peak 5.7307   F = 6.211   tip force 0.204   0.2 s
-  tip   30 mm   flag 2 (no converged solution)   2.1 s
-  tip    0 mm   flag 2 (no converged solution)   1.4 s
+    LICQ: 208 active rows, 786 unknowns, smallest singular value 1.695e-02 (condition 8.3e+01)
+    second order: min eigenvalue of the reduced Hessian 5.496e-03 N/mm (strongly active, dim 584), 5.497e-03 N/mm (all active, dim 578)
+    box bounds: smallest margin 19.33 mm
+    vessel polygon: min local radius 18.1 mm, min half-chord 14.6 mm, delta_max 9.56 mm
+    Proposition 3.2.3: contacts project to sigma in [39.2, 253.6] of [0, 376.4] mm, opposite-wall pairs 0
+  tip   30 mm   flag 2 (no converged solution)   first-order optimality 2.5e-01, constraint violation 1.2e-13, 46 iterations   2.1 s
+  tip    0 mm   flag 2 (no converged solution)   first-order optimality 1.0e+00, constraint violation 4.2e-14, 47 iterations   1.4 s
   tip  150 mm   flag 1   E = 114.1455   peak 5.7305   F = 6.210   tip force 0.000   0.3 s
+    LICQ: 274 active rows, 900 unknowns, smallest singular value 1.358e-02 (condition 1.0e+02)
+    second order: min eigenvalue of the reduced Hessian 1.030e-03 N/mm (strongly active, dim 626), 1.030e-03 N/mm (all active, dim 626)
+    box bounds: smallest margin 19.33 mm
+    vessel polygon: min local radius 18.1 mm, min half-chord 14.6 mm, delta_max 9.56 mm
+    Proposition 3.2.3: contacts project to sigma in [39.2, 268.1] of [0, 376.4] mm, opposite-wall pairs 0
   tip  180 mm   flag 1   E = 114.1455   peak 5.7305   F = 6.210   tip force 0.000   0.3 s
+    LICQ: 292 active rows, 936 unknowns, smallest singular value 1.250e-02 (condition 1.1e+02)
+    second order: min eigenvalue of the reduced Hessian 3.765e-04 N/mm (strongly active, dim 644), 3.765e-04 N/mm (all active, dim 644)
+    box bounds: smallest margin 19.33 mm
+    vessel polygon: min local radius 18.1 mm, min half-chord 14.6 mm, delta_max 9.56 mm
+    Proposition 3.2.3: contacts project to sigma in [39.2, 268.1] of [0, 376.4] mm, opposite-wall pairs 0
 
 Audit of the saved equilibria
 results/base.mat

@@ -12,8 +12,10 @@
 %      continued straight beyond the old tip (Section 4 and Figure 6).
 %
 %   Results are written to results/*.mat and results/summary.json, and the
-%   command window output to results/run_demos.log. AUDIT_SOLUTION then
-%   checks each saved equilibrium independently of the solver.
+%   command window output to results/run_demos.log. KKT_DIAGNOSTICS checks the
+%   constraint qualification, the second-order condition and the discrete
+%   thickness at each converged solution. AUDIT_SOLUTION then checks each
+%   saved equilibrium independently of the solver.
 
 here = fileparts(mfilename('fullpath'));
 cd(here);  if ~exist('results', 'dir'), mkdir results; end
@@ -44,6 +46,9 @@ for a = 1:numel(base.arcs)
     fprintf('    s = %6.1f to %6.1f mm   %-6s %.3f N\n', base.arcs(a).s0, base.arcs(a).s1, base.arcs(a).side, base.arcs(a).force);
 end
 
+fprintf('  KKT diagnostics, rigid vessel\n');  summary.rigid.kkt = kkt_diagnostics(rigid.prob, rigid.x, rigid.out);
+fprintf('  KKT diagnostics, deformable vessel\n');  summary.base.kkt = kkt_diagnostics(prob, x, out);
+
 tips = {[90 60 30 0], [150 180]};
 summary.length = struct('tip', {}, 'flag', {}, 'E', {}, 'peak', {}, 'F_kkt', {}, 'tip_force', {}, 's_last_contact', {}, 'time', {});
 for q = 1:numel(tips)
@@ -56,7 +61,8 @@ for q = 1:numel(tips)
         x0 = pack_nodes(pr, Pv, Pw);
         [xt, oo] = solve_equilibrium(pr, x0, true, 600);
         if oo.flag ~= 1                     % report only solves that met the optimality tolerance
-            fprintf('  tip %4d mm   flag %d (no converged solution)   %.1f s\n', tp, oo.flag, oo.time);
+            fprintf('  tip %4d mm   flag %d (no converged solution)   first-order optimality %.1e, constraint violation %.1e, %d iterations   %.1f s\n', ...
+                tp, oo.flag, oo.firstorderopt, oo.constrviolation, oo.iterations, oo.time);
             summary.length(end+1) = struct('tip', tp, 'flag', oo.flag, 'E', oo.E, 'peak', NaN, ...
                 'F_kkt', NaN, 'tip_force', NaN, 's_last_contact', NaN, 'time', oo.time);
             continue
@@ -65,8 +71,10 @@ for q = 1:numel(tips)
         S = postprocess(pr, xx, oo);
         fprintf('  tip %4d mm   flag %d   E = %.4f   peak %.4f   F = %.3f   tip force %.3f   %.1f s\n', ...
             tp, S.flag, S.E, S.peak, S.F_kkt, S.tip_force, S.time);
+        kd = kkt_diagnostics(pr, xx, oo);
         summary.length(end+1) = struct('tip', tp, 'flag', S.flag, 'E', S.E, 'peak', S.peak, ...
             'F_kkt', S.F_kkt, 'tip_force', S.tip_force, 's_last_contact', S.s_last_contact, 'time', S.time);
+        summary.kkt.(sprintf('tip%d', tp)) = kd;
         save(sprintf('results/tip%d.mat', tp), '-struct', 'S');
         Pw_old = S.Pw;  prob = pr;
     end

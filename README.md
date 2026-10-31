@@ -51,6 +51,10 @@ The output of the run used for the paper is in [`matlab/results/run_demos.log`](
 | Section 4: compression at the sheath exit | 0.94 N | `base.halfBk2_exit` |
 | Section 4: rigid vessel, total wall reaction | 11.3 N | `rigid.F_kkt`, `results/rigid.mat` |
 | Section 4: rigid vessel, contacts | 4.32 and 4.57 N at the inner walls, 2.13 and 0.25 N in the aorta | `rigid.arcs`, rigid-vessel lines of the log |
+| Section 4: constraint qualification (LICQ) at each converged solution | smallest singular value of the row-scaled active Jacobian 0.012 to 0.017 | `kkt_diagnostics`, log |
+| Section 4: second-order sufficient condition | reduced Hessian positive definite, smallest eigenvalue 3.8e-3 N/mm (base case), 3.8e-4 to 5.0e-2 N/mm (all cases) | `kkt_diagnostics`, log |
+| Section 4: discrete thickness of the deformed vessel | min local radius 18.1 mm, min half-chord 14.6 mm, against delta at most 9.56 mm | `kkt_diagnostics`, log |
+| Section 4: conditions of Proposition 3.2.3 | contacts project inside the vessel, no contacts on opposite walls of one cross-section | `kkt_diagnostics`, log |
 | Section 4, Figure 6: other wire lengths | E = 114.1455 (90, 150, 180 mm), 114.1432 and 0.20 N tip force (60 mm) | `length` entries |
 | Section 4: tip on the taper | not converged (exit flag 2) | `length` entries for 30 and 0 mm |
 
@@ -59,6 +63,7 @@ The output of the run used for the paper is in [`matlab/results/run_demos.log`](
 | File | Purpose |
 |---|---|
 | `matlab/run_demos.m` | Every computation reported in Section 4 |
+| `matlab/kkt_diagnostics.m` | LICQ, second-order check, discrete thickness and the conditions of Proposition 3.2.3 at a solution |
 | `matlab/evar_geometry.m` | State 1 test vessel: sine iliac segment and straight aorta, lumen radius 6 to 10 mm |
 | `matlab/build_problem.m` | Problem data, unknowns, and the column of every node coordinate |
 | `matlab/pack_nodes.m`, `unpack_nodes.m` | Node positions to and from the vector of unknowns |
