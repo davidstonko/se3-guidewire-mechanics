@@ -1,18 +1,28 @@
-31-Oct-2026 14:55:21   MATLAB 25.2.0.3150157 (R2025b) Update 4
+31-Oct-2026 16:22:05   MATLAB 25.2.0.3150157 (R2025b) Update 4
 Derivative check
 relative error  gradient 2.88e-09   Jacobian 4.10e-09   Jacobian(eq) 2.08e-09   Hessian 1.75e-09
 Base case, tip 120 mm into the aorta
-  rigid vessel  B =   291.0   flag 1   E = 8.320014   0.7 s
+  rigid vessel  B =   291.0   flag 1   E = 8.320014   0.6 s
   rigid vessel  B =  1849.0   flag 1   E = 52.863330   0.3 s
-  rigid vessel  B =  4856.6   flag 1   E = 138.843063   0.3 s
-  relax  log10(k/kbar h) = 1.500   flag 1   E = 135.603443   0.3 s
-  relax  log10(k/kbar h) = 1.000   flag 1   E = 131.757488   0.6 s
-  relax  log10(k/kbar h) = 0.500   flag 2   E = 124.770326   4.5 s
-  relax  log10(k/kbar h) = 0.000   flag 1   E = 114.145548   7.0 s
-  tip   90 mm   flag 1   E = 114.1455   peak 5.7305   F = 6.210   tip force 0.000   0.3 s
+  rigid vessel  B =  4856.6   flag 1   E = 138.843063   0.2 s
+  relax  log10(k/kbar h) = 1.500   flag 1   E = 135.603443   0.2 s
+  relax  log10(k/kbar h) = 1.000   flag 1   E = 131.757488   0.5 s
+  relax  log10(k/kbar h) = 0.500   flag 2   E = 124.770326   4.0 s
+  relax  log10(k/kbar h) = 0.000   flag 1   E = 114.145548   4.3 s
+  rigid vessel: wall reaction 11.262 N, contacts:
+    s =   44.7 to   44.7 mm   inner  4.317 N
+    s =  126.2 to  127.8 mm   inner  4.567 N
+    s =  177.4 to  177.4 mm   aorta  2.126 N
+    s =  250.9 to  270.1 mm   aorta  0.252 N
+  deformable vessel: wall reaction 6.210 N, contacts:
+    s =   36.8 to   49.5 mm   inner  2.010 N
+    s =  110.3 to  129.4 mm   inner  3.083 N
+    s =  169.4 to  174.2 mm   outer  0.207 N
+    s =  203.0 to  254.1 mm   aorta  0.910 N
+  tip   90 mm   flag 1   E = 114.1455   peak 5.7305   F = 6.210   tip force 0.000   0.2 s
   tip   60 mm   flag 1   E = 114.1432   peak 5.7307   F = 6.211   tip force 0.204   0.2 s
-  tip   30 mm   flag 2 (no converged solution)   2.4 s
-  tip    0 mm   flag 2 (no converged solution)   1.6 s
+  tip   30 mm   flag 2 (no converged solution)   2.1 s
+  tip    0 mm   flag 2 (no converged solution)   1.4 s
   tip  150 mm   flag 1   E = 114.1455   peak 5.7305   F = 6.210   tip force 0.000   0.3 s
   tip  180 mm   flag 1   E = 114.1455   peak 5.7305   F = 6.210   tip force 0.000   0.3 s
 

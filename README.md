@@ -49,7 +49,8 @@ The output of the run used for the paper is in [`matlab/results/run_demos.log`](
 | Section 4: wall reaction, multipliers against line load with H = 0 | 6.21 N against 6.22 N | `base.F_kkt`, `base.F_line` |
 | Section 4: material force after the clamped edge | below 0.02 N | `base.H_absmax_after_first_edge` |
 | Section 4: compression at the sheath exit | 0.94 N | `base.halfBk2_exit` |
-| Section 4: rigid vessel | 11.3 N | `rigid.F_kkt` |
+| Section 4: rigid vessel, total wall reaction | 11.3 N | `rigid.F_kkt`, `results/rigid.mat` |
+| Section 4: rigid vessel, contacts | 4.32 and 4.57 N at the inner walls, 2.13 and 0.25 N in the aorta | `rigid.arcs`, rigid-vessel lines of the log |
 | Section 4, Figure 6: other wire lengths | E = 114.1455 (90, 150, 180 mm), 114.1432 and 0.20 N tip force (60 mm) | `length` entries |
 | Section 4: tip on the taper | not converged (exit flag 2) | `length` entries for 30 and 0 mm |
 

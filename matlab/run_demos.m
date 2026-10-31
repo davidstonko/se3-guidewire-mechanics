@@ -5,7 +5,8 @@
 %   2011), vessel bending stiffness 200 N mm^2, foundation 0.0158 N/mm^2.
 %
 %   1. Base case: tip 120 mm into the aorta (Section 4 and Figure 5).
-%      The same continuation gives the wire in a nearly rigid vessel.
+%      The same continuation gives the wire in a nearly rigid vessel. Both
+%      contact patterns are printed and the rigid one is saved to rigid.mat.
 %   2. Wire length: tip 90, 60, 30, 0 mm and 150, 180 mm into the aorta,
 %      each started from the previous equilibrium cut at the new length or
 %      continued straight beyond the old tip (Section 4 and Figure 6).
@@ -32,7 +33,16 @@ rig  = postprocess(rigid.prob, rigid.x, rigid.out);
 save('results/base.mat', '-struct', 'base');
 summary.base = rmfield(base, {'Pv','Pw','P','R','U','s_v','s_w','fn','kap','cum_kkt','cum_line','He','N_edge','halfBk2','contact_nodes'});
 summary.base.steps = steps;
-summary.rigid = struct('F_kkt', rig.F_kkt, 'E', rig.E, 'flag', rig.flag);
+summary.rigid = struct('F_kkt', rig.F_kkt, 'E', rig.E, 'flag', rig.flag, 'arcs', rig.arcs);
+save('results/rigid.mat', '-struct', 'rig');
+fprintf('  rigid vessel: wall reaction %.3f N, contacts:\n', rig.F_kkt);
+for a = 1:numel(rig.arcs)
+    fprintf('    s = %6.1f to %6.1f mm   %-6s %.3f N\n', rig.arcs(a).s0, rig.arcs(a).s1, rig.arcs(a).side, rig.arcs(a).force);
+end
+fprintf('  deformable vessel: wall reaction %.3f N, contacts:\n', base.F_kkt);
+for a = 1:numel(base.arcs)
+    fprintf('    s = %6.1f to %6.1f mm   %-6s %.3f N\n', base.arcs(a).s0, base.arcs(a).s1, base.arcs(a).side, base.arcs(a).force);
+end
 
 tips = {[90 60 30 0], [150 180]};
 summary.length = struct('tip', {}, 'flag', {}, 'E', {}, 'peak', {}, 'F_kkt', {}, 'tip_force', {}, 's_last_contact', {}, 'time', {});
