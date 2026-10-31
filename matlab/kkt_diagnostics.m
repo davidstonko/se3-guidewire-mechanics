@@ -21,7 +21,7 @@ function D = kkt_diagnostics(prob, x, out)
 %        smallest half-distance between vessel nodes more than pi*delta_max
 %        apart in arc length. If both exceed delta_max, the tube of radius
 %        delta_max about the polygon does not overlap itself.
-%     5. The conditions of Proposition 3.2.3: every contact projects inside
+%     5. The conditions of Proposition 5.3: every contact projects inside
 %        the vessel, and no two contacts within one node spacing of the same
 %        vessel parameter press on opposite walls.
 
@@ -67,10 +67,14 @@ DX = sqrt((Pv(:,1) - Pv(:,1)').^2 + (Pv(:,2) - Pv(:,2)').^2);
 D.min_half_chord = 0.5*min(DX(far));
 D.delta_max = dmax;
 
-% 5. Conditions of Proposition 3.2.3.
+% 5. Conditions of Proposition 5.3.
 J = find(act);
 sig = s(info.seg(J)) + info.t(J).*L(info.seg(J));     % vessel parameter of each foot point
 D.contact_sigma_range = [min(sig), max(sig)];
+rfoot = (1 - info.t(J)).*prob.R(info.seg(J)) + info.t(J).*prob.R(info.seg(J)+1);
+wid = rfoot > min(prob.R) + 1e-6 & rfoot < max(prob.R) - 1e-6;   % foot point where the lumen radius changes
+D.widening_nodes = nnz(wid);  D.widening_force = sum(fn(J(wid)));
+D.widening_s = [min([J(wid); Inf]), max([J(wid); -Inf])]*prob.h0;
 D.vessel_length = s(end);
 nrm = zeros(numel(J), 2);
 for q = 1:numel(J)
@@ -90,9 +94,11 @@ fprintf('    LICQ: %d active rows, %d unknowns, smallest singular value %.3e (co
     D.n_active_rows, D.n_unknowns, D.licq_smin, D.licq_cond);
 fprintf('    second order: min eigenvalue of the reduced Hessian %.3e N/mm (strongly active, dim %d), %.3e N/mm (all active, dim %d)\n', ...
     D.min_eig_strong, D.dim_null_strong, D.min_eig_active, D.dim_null_active);
+fprintf('    largest eigenvalue of the reduced Hessian %.2e N/mm\n', D.max_eig_strong);
+fprintf('    contacts where the lumen widens: %d nodes, s = %.1f to %.1f mm, %.3f N\n', D.widening_nodes, D.widening_s(1), D.widening_s(2), D.widening_force);
 fprintf('    box bounds: smallest margin %.2f mm\n', D.box_margin);
 fprintf('    vessel polygon: min local radius %.1f mm, min half-chord %.1f mm, delta_max %.2f mm\n', ...
     D.min_local_radius, D.min_half_chord, D.delta_max);
-fprintf('    Proposition 3.2.3: contacts project to sigma in [%.1f, %.1f] of [0, %.1f] mm, opposite-wall pairs %d\n', ...
+fprintf('    Proposition 5.3: contacts project to sigma in [%.1f, %.1f] of [0, %.1f] mm, opposite-wall pairs %d\n', ...
     D.contact_sigma_range(1), D.contact_sigma_range(2), D.vessel_length, D.opposite_wall_pairs);
 end

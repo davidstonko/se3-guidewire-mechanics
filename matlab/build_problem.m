@@ -2,7 +2,7 @@ function prob = build_problem(G, ell, B, k, Pw_init)
 %BUILD_PROBLEM  Discrete wire-in-vessel problem (free tip, fixed length).
 %
 %   prob = BUILD_PROBLEM(G, ell, B, k) sets up the nonlinear program of
-%   Section 2.4 of the paper for the geometry G from EVAR_GEOMETRY:
+%   Section 7.1 of the paper for the geometry G from EVAR_GEOMETRY:
 %
 %     minimize   E(x) = E_wire + E_vessel + E_foundation
 %     subject to c_j(x)  = dist(y_j, Gamma_h)^2 - delta_j^2 <= 0,  j = 1..n_w-1

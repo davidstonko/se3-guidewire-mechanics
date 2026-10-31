@@ -7,7 +7,7 @@ function [f, g, H] = bend_energy(Q, phi0, c, cols, n)
 %   where, at each interior vertex i, phi_i is the signed turning angle
 %   between the incoming edge a = q_i - q_{i-1} and the outgoing edge
 %   b = q_{i+1} - q_i, and l_i = (|a| + |b|)/2 is the Voronoi length.
-%   By Proposition 2.1.3 of the paper this is the quadratic strain energy of
+%   By Lemma 7.1 of the paper this is the quadratic strain energy of
 %   the discrete Bishop frame of the polygon.
 %
 %   Inputs

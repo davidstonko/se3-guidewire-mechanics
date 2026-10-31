@@ -5,7 +5,7 @@ function A = audit_solution(file)
 %   saved data and checks, without re-solving:
 %     1. feasibility: lumen constraint and edge lengths at the solution,
 %     2. that the 25 mm box bounds on the node positions are inactive,
-%     3. the signs of Corollary 3.4.1 on every contact arc: on inner-wall
+%     3. the signs of Corollary 5.6 on every contact arc: on inner-wall
 %        contact the curvature toward the wall is positive and concave, on
 %        outer-wall contact it is negative, and the line load with H = 0 is
 %        nonnegative at nodes inside an arc,
@@ -30,7 +30,7 @@ sP = [0; cumsum(sqrt(sum(diff(G.P).^2, 2)))];  q = (0:M-1)'*h;
 W0 = [interp1(sP, G.P(:,1), q), interp1(sP, G.P(:,2), q)];   % wire start: State 1 centerline
 A.max_wire_move_from_centerline = max(sqrt(sum((Pw - W0).^2, 2)));
 
-% 3. Signs of Corollary 3.4.1 at the contact nodes.
+% 3. Signs of Corollary 5.6 at the contact nodes.
 J = S.contact_nodes(:);                                  % wire node numbers j >= 1
 kap = S.kap(:);                                          % nodes 0..M-1
 kpp = zeros(M,1);  kpp(3:end-2) = (kap(4:end-1) - 2*kap(3:end-2) + kap(2:end-3))/h^2;

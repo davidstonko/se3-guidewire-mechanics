@@ -7,7 +7,7 @@ function [c, Gc, Hc, info] = contact_terms(Y, Pv, R, rw, ycols, vcols, n, lam)
 %   segment [A, B], and R is interpolated linearly along that segment at the
 %   foot point A + t (B - A). The nearest segment is chosen without
 %   differentiation, then held fixed, as the envelope formula of
-%   Proposition 2.2.1 permits.
+%   Lemma 3.1 permits.
 %
 %   Inputs
 %     Y      m-by-2 constrained wire nodes

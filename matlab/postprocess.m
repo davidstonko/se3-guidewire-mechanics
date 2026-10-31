@@ -2,14 +2,14 @@ function S = postprocess(prob, x, out)
 %POSTPROCESS  Forces, material force and geometry of a computed equilibrium.
 %
 %   S = POSTPROCESS(prob, x, out) evaluates the quantities reported in
-%   Section 4 of the paper from the solution x and the fmincon output.
+%   Section 7 of the paper from the solution x and the fmincon output.
 %
 %   Contact forces. The multiplier lambda_j of c_j = d_j^2 - delta_j^2 <= 0
 %   is a force per unit of c_j. Since |grad c_j| = 2 d_j = 2 delta_j on
 %   contact, the nodal contact force is f_j = 2 delta_j lambda_j (N).
 %
-%   Line load. With H = 0 (Theorem 3.3.1) the wall load is
-%   lambda = -B (kappa'' + kappa^3/2) (Corollary 3.4.1), evaluated with the
+%   Line load. With H = 0 (Theorem 5.4) the wall load is
+%   lambda = -B (kappa'' + kappa^3/2) (Corollary 5.6), evaluated with the
 %   discrete curvature kappa_j = phi_j/h and central differences.
 %
 %   Material force. The wire energy depends on the edge lengths through the

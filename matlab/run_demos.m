@@ -1,15 +1,15 @@
-%RUN_DEMOS  Computations reported in Section 4 of the paper.
+%RUN_DEMOS  Computations reported in Section 7 of the paper.
 %
 %   Planar test vessel (EVAR_GEOMETRY), node spacing about 1.6 mm, 0.035 inch
 %   Lunderquist Extra Stiff wire, B = 158.4 GPa * pi d^4/64 (Harrison et al.
 %   2011), vessel bending stiffness 200 N mm^2, foundation 0.0158 N/mm^2.
 %
-%   1. Base case: tip 120 mm into the aorta (Section 4 and Figure 5).
+%   1. Base case: tip 120 mm into the aorta (Section 7.3 and Figure 5).
 %      The same continuation gives the wire in a nearly rigid vessel. Both
 %      contact patterns are printed and the rigid one is saved to rigid.mat.
 %   2. Wire length: tip 90, 60, 30, 0 mm and 150, 180 mm into the aorta,
 %      each started from the previous equilibrium cut at the new length or
-%      continued straight beyond the old tip (Section 4 and Figure 6).
+%      continued straight beyond the old tip (Section 7.4 and Figure 6).
 %
 %   Results are written to results/*.mat and results/summary.json, and the
 %   command window output to results/run_demos.log. KKT_DIAGNOSTICS checks the
@@ -46,6 +46,10 @@ for a = 1:numel(base.arcs)
     fprintf('    s = %6.1f to %6.1f mm   %-6s %.3f N\n', base.arcs(a).s0, base.arcs(a).s1, base.arcs(a).side, base.arcs(a).force);
 end
 
+fprintf('  deformable vessel: peak displacement %.4f mm at s_v = %.1f mm, %.2f mm at the first bend, aorta %.2f mm, RMS %.2f mm\n', ...
+    base.peak, base.peak_at_s, base.peak_first_bend, base.aorta_shift, base.rms);
+fprintf('  curvature at the sheath exit %.4f 1/mm, B kappa^2/2 there %.3f N, max of B kappa^2/2 %.3f N\n', base.kappa_exit, base.halfBk2_exit, base.halfBk2_max);
+fprintf('  last contact s = %.1f mm, straight continuation stays in the lumen up to s = %.1f mm\n', base.s_last_contact, base.s_free_until);
 fprintf('  KKT diagnostics, rigid vessel\n');  summary.rigid.kkt = kkt_diagnostics(rigid.prob, rigid.x, rigid.out);
 fprintf('  KKT diagnostics, deformable vessel\n');  summary.base.kkt = kkt_diagnostics(prob, x, out);
 
@@ -63,6 +67,10 @@ for q = 1:numel(tips)
         if oo.flag ~= 1                     % report only solves that met the optimality tolerance
             fprintf('  tip %4d mm   flag %d (no converged solution)   first-order optimality %.1e, constraint violation %.1e, %d iterations   %.1f s\n', ...
                 tp, oo.flag, oo.firstorderopt, oo.constrviolation, oo.iterations, oo.time);
+            [Pvf, Pwf] = unpack_nodes(pr, xt);
+            [~, ~, ~, inf_] = contact_terms(Pwf(end,:), Pvf, pr.R, pr.rw, [0 0], pr.vcol, pr.n);
+            fprintf('      lumen radius at the foot point of the tip %.2f mm (iliac %.0f, aorta %.0f), gap %.3f mm\n', ...
+                (1 - inf_.t)*pr.R(inf_.seg) + inf_.t*pr.R(inf_.seg+1), min(pr.R), max(pr.R), inf_.delta - inf_.d);
             summary.length(end+1) = struct('tip', tp, 'flag', oo.flag, 'E', oo.E, 'peak', NaN, ...
                 'F_kkt', NaN, 'tip_force', NaN, 's_last_contact', NaN, 'time', oo.time);
             continue
@@ -71,6 +79,7 @@ for q = 1:numel(tips)
         S = postprocess(pr, xx, oo);
         fprintf('  tip %4d mm   flag %d   E = %.4f   peak %.4f   F = %.3f   tip force %.3f   %.1f s\n', ...
             tp, S.flag, S.E, S.peak, S.F_kkt, S.tip_force, S.time);
+        fprintf('    largest change in vessel displacement from the 120 mm case %.1e mm\n', max(abs(S.U - base.U)));
         kd = kkt_diagnostics(pr, xx, oo);
         summary.length(end+1) = struct('tip', tp, 'flag', S.flag, 'E', S.E, 'peak', S.peak, ...
             'F_kkt', S.F_kkt, 'tip_force', S.tip_force, 's_last_contact', S.s_last_contact, 'time', S.time);
