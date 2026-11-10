@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "If you use this code, please cite the paper and this software."
 title: "se3-guidewire-mechanics: MATLAB code for guidewire-vessel mechanics on SE(3)"
-version: 1.0.0
-date-released: 2026-10-31
+version: 1.1.0
+date-released: 2026-11-10
 license: MIT
 repository-code: "https://github.com/davidstonko/se3-guidewire-mechanics"
 authors:

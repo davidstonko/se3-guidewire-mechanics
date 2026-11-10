@@ -1,0 +1,183 @@
+09-Nov-2026 10:38:55   MATLAB 25.2.0.3150157 (R2025b) Update 4
+
+1. Geometry: iliac (x, 25 sin(2 pi x/150), A sin(pi x/150)), 0 <= x <= 150 mm, then a straight 200 mm aorta
+   A (mm)  S_il (mm)  min R_c (mm)  max|tau| (1/mm)  RMS tau  polygon: min local radius, min dist of nodes > 10 pi apart (mm)
+       0     185.14        22.80           0.0000    0.0000    22.83    30.06
+      10     186.49        23.24           0.1998    0.0413    23.29    30.09
+      20     190.45        24.52           0.0999    0.0285    24.56    30.29
+      30     196.80        26.54           0.0666    0.0223    26.57    30.48
+      40     205.24        29.14           0.0499    0.0184    29.16    30.72
+      50     215.45        32.10           0.0400    0.0157    32.12    30.84
+   chosen A = 30 mm: iliac arc length 196.80 mm, vessel length 396.80 mm, 249 nodes, spacing 1.6000 mm
+   min radius of curvature 26.54 mm (required >= 18), max |torsion| 0.0666 1/mm (where kappa > 1e-3), RMS torsion 0.0223 1/mm
+   tube of radius 10 mm: min local radius of the node polygon 26.57 mm (> 10), min distance of nodes more than 10 pi mm apart 30.48 mm (> 20): no self-intersection
+   out-of-plane extent max z = 30.00 mm; aortic axis (end tangent of the iliac segment) (0.6335, 0.6634, -0.3981)
+
+2. Derivative check (coarse mesh h = 6 mm, A = 30 mm, random perturbation)
+relative error  gradient 2.93e-09   Jacobian 3.64e-09   Jacobian(eq) 1.98e-09   Hessian 1.73e-09
+  wire energy alone, random bent polygon: gradient 2.24e-10   Hessian 2.35e-10
+
+3. Validation on the planar geometry (A = 0)
+  rigid vessel  B =   291.0   flag 1   E = 8.321843   optimality 5.6e-10   48 it   0.7 s
+  rigid vessel  B =  1849.0   flag 1   E = 52.876589   optimality 9.6e-10   23 it   0.3 s
+  rigid vessel  B =  4856.6   flag 1   E = 138.886056   optimality 1.3e-09   18 it   0.2 s
+  relax  log10(k/kbar h) = 1.500   flag 2   E = 135.688180   optimality 1.2e-01   43 it   3.3 s
+  relax  log10(k/kbar h) = 1.000   flag 1   E = 131.886772   optimality 7.7e-09   20 it   0.3 s
+  relax  log10(k/kbar h) = 0.500   flag 1   E = 125.000117   optimality 8.8e-09   23 it   0.9 s
+  relax  log10(k/kbar h) = 0.000   flag 1   E = 114.505259   optimality 1.2e-08   19 it   0.8 s
+  wire nodes 192, vessel nodes 242, unknowns 1293 (rigid 573)
+  planarity of the 3D solution: max |z| wire 5.4e-28 mm, vessel 7.1e-29 mm
+  rigid vessel (B_v -> infinity): energy 138.886056 (planar 138.843063), wall reaction 11.249 N (planar 11.262 N, difference -0.11%)
+    3D code:
+    s =   44.7 to   44.7 mm ( 1 nodes)   vessel sigma   47.7 to   47.7 mm   inner  angle to curvature vector   1.4 deg   4.314 N
+    s =  126.2 to  127.8 mm ( 2 nodes)   vessel sigma  134.5 to  136.5 mm   inner  angle to curvature vector   1.2 deg   4.563 N
+    s =  177.4 to  177.4 mm ( 1 nodes)   vessel sigma  187.5 to  187.5 mm   aorta  angle to curvature vector   0.3 deg   2.119 N
+    s =  250.9 to  300.4 mm (32 nodes)   vessel sigma  260.8 to  310.4 mm   aorta  angle to curvature vector  65.4 deg   0.253 N
+    planar code:
+    s =   44.7 to   44.7 mm   inner  4.317 N
+    s =  126.2 to  127.8 mm   inner  4.567 N
+    s =  177.4 to  177.4 mm   aorta  2.126 N
+    s =  250.9 to  270.1 mm   aorta  0.252 N
+  deformable vessel: energy 114.505259 (planar 114.145548), wall reaction 6.232 N (planar 6.210 N, difference +0.35%)
+    energy parts: wire 101.8246 (planar 101.8620), vessel bending 2.2283 (planar 1.7068), foundation 10.4523 (planar 10.5768)
+    3D code:
+    s =   40.0 to   46.3 mm ( 5 nodes)   vessel sigma   44.6 to   51.9 mm   inner  angle to curvature vector   0.4 deg   2.012 N
+    s =  111.9 to  126.2 mm (10 nodes)   vessel sigma  124.8 to  141.1 mm   inner  angle to curvature vector   0.4 deg   3.096 N
+    s =  171.0 to  172.6 mm ( 2 nodes)   vessel sigma  189.8 to  191.3 mm   outer  angle to curvature vector 179.9 deg   0.233 N
+    s =  204.6 to  255.7 mm (33 nodes)   vessel sigma  223.0 to  273.6 mm   aorta  angle to curvature vector 174.7 deg   0.891 N
+    planar code:
+    s =   36.8 to   49.5 mm   inner  2.010 N
+    s =  110.3 to  129.4 mm   inner  3.083 N
+    s =  169.4 to  174.2 mm   outer  0.207 N
+    s =  203.0 to  254.1 mm   aorta  0.910 N
+    peak displacement 5.7651 mm at s_v = 135.8 mm (planar 5.7305 mm at 135.8 mm, difference +0.60%), first bend 4.08 (planar 4.09), aorta 1.11 (planar 1.13), RMS 1.85 (planar 1.86) mm
+    material force: max |H| after the first edge 0.0073 N (planar 0.0194 N), H on the first edge -0.4638 N (planar -0.4625 N)
+    line load (vector form) 6.2307 N vs multipliers 6.2319 N (-0.02%); planar code 6.2216 vs 6.2101 N
+  KKT diagnostics, planar geometry, rigid vessel
+    LICQ: 236 active rows, 573 unknowns, smallest singular value 1.692e-02 (condition 8.4e+01)
+    Hessian of the Lagrangian by finite differences of the exact gradient: asymmetry 8.8e-10, difference from the analytic Hessian 1.2e-09
+    second order: min eigenvalue of the reduced Hessian 4.734e-04 N/mm (strongly active, dim 341), 4.734e-04 N/mm (all active, dim 337)
+    largest eigenvalue of the reduced Hessian 1.90e+04 N/mm
+    softest mode: 100% of its norm on the wire, largest wire amplitude at s = 305.2 mm (direction 0.00 along the wire), largest vessel amplitude at s_v = NaN mm
+    box bounds: smallest margin 11.23 mm
+    vessel polygon: min local radius 22.8 mm, min half-chord 14.3 mm, delta_max 9.56 mm
+    contacts project to sigma in [47.7, 315.2] of [0, 385.1] mm, opposite-wall pairs 0
+  KKT diagnostics, planar geometry, deformable vessel
+    LICQ: 249 active rows, 1293 unknowns, smallest singular value 1.494e-02 (condition 9.5e+01)
+    Hessian of the Lagrangian by finite differences of the exact gradient: asymmetry 7.9e-10, difference from the analytic Hessian 1.1e-09
+    second order: min eigenvalue of the reduced Hessian 4.538e-04 N/mm (strongly active, dim 1050), 4.538e-04 N/mm (all active, dim 1044)
+    largest eigenvalue of the reduced Hessian 1.90e+04 N/mm
+    softest mode: 100% of its norm on the wire, largest wire amplitude at s = 305.2 mm (direction 0.00 along the wire), largest vessel amplitude at s_v = 249.3 mm
+    box bounds: smallest margin 4.72 mm
+    vessel polygon: min local radius 25.8 mm, min half-chord 14.6 mm, delta_max 9.56 mm
+    contacts project to sigma in [42.7, 268.3] of [0, 376.6] mm, opposite-wall pairs 0
+  clock shift sanity check on the planar geometry (State 1 -> State 2):
+    a = (0,0,1): max |shift| 8.75e-29 deg, max |integral shift| 8.75e-29 deg
+    a = (0,1,0): max |shift| 1.41e-28 deg, max |integral shift| 1.41e-28 deg, max |a.t| 0.723 / 0.741
+
+4. Non-planar base case, A = 30 mm, tip 120 mm into the aorta
+  rigid vessel  B =   291.0   flag 1   E = 7.686581   optimality 5.4e-10   42 it   0.5 s
+  rigid vessel  B =  1849.0   flag 1   E = 48.840164   optimality 4.5e-11   24 it   0.3 s
+  rigid vessel  B =  4856.6   flag 1   E = 128.283948   optimality 1.1e-08   17 it   0.2 s
+  relax  log10(k/kbar h) = 1.500   flag 1   E = 126.263977   optimality 2.2e-09   18 it   0.3 s
+  relax  log10(k/kbar h) = 1.000   flag 1   E = 123.767913   optimality 2.7e-09   21 it   0.3 s
+  relax  log10(k/kbar h) = 0.500   flag 1   E = 118.890022   optimality 8.1e-09   26 it   1.0 s
+  relax  log10(k/kbar h) = 0.000   flag 1   E = 110.640772   optimality 3.7e-09   22 it   1.0 s
+  wire nodes 199 (length 316.80 mm), vessel nodes 249, unknowns 1335
+  final solve: flag 1, first-order optimality 3.7e-09, constraint violation 1.2e-13, 22 iterations
+  rigid vessel: energy 128.283948, wall reaction 9.027 N, contacts:
+    s =   49.6 to   51.2 mm ( 2 nodes)   vessel sigma   52.2 to   54.1 mm   inner  angle to curvature vector  14.8 deg   3.455 N
+    s =  132.8 to  134.4 mm ( 2 nodes)   vessel sigma  139.6 to  141.5 mm   inner  angle to curvature vector  19.9 deg   3.635 N
+    s =  190.4 to  190.4 mm ( 1 nodes)   vessel sigma  199.0 to  199.0 mm   aorta  angle to curvature vector 173.5 deg   1.773 N
+    s =  275.2 to  296.0 mm (14 nodes)   vessel sigma  283.6 to  304.4 mm   aorta  angle to curvature vector 144.0 deg   0.163 N
+    s =  312.0 to  316.8 mm ( 4 nodes)   vessel sigma  320.4 to  325.2 mm   aorta  angle to curvature vector  62.2 deg   0.002 N
+  deformable vessel: energy 110.640772 N mm (wire 100.2854, vessel bending 1.7398, foundation 8.6156)
+  wall reaction from the multipliers 5.861 N, contacts:
+    s =   44.8 to   54.4 mm ( 7 nodes)   vessel sigma   49.1 to   59.9 mm   inner  angle to curvature vector  14.1 deg   2.003 N
+    s =  118.4 to  134.4 mm (11 nodes)   vessel sigma  130.7 to  148.6 mm   inner  angle to curvature vector  34.8 deg   2.698 N
+    s =  182.4 to  184.0 mm ( 2 nodes)   vessel sigma  199.8 to  201.3 mm   outer  angle to curvature vector 179.1 deg   0.530 N
+    s =  220.8 to  276.8 mm (36 nodes)   vessel sigma  237.7 to  293.4 mm   aorta  angle to curvature vector 153.4 deg   0.631 N
+  peak vessel displacement 4.9509 mm at s_v = 140.8 mm (iliac, node 89), vector (0.91, 4.87, 0.03) mm
+  largest displacement in the first half of the iliac 3.93 mm, in the aorta 1.20 mm, RMS 1.65 mm
+  curvature at the sheath exit 0.0147 1/mm, B kappa^2/2 there 0.528 N
+  (c) material force H = 2 h nu on each edge: max |H| after the first edge 0.0272 N, H on the first edge -0.2824 N,
+      max of B kappa^2/2 0.962 N, ratio 0.0282
+      (planar geometry, same code: max |H| 0.0073 N, max B kappa^2/2 1.131 N)
+  (d) line load with H = 0 against the multipliers
+      non-planar: vector form f = B y'''' + 3/2 B (kappa^2 y')' on 56 of 56 contact nodes: 5.8705 N vs multipliers 5.8609 N (+0.16%)
+                  angle between contact force and line-load vector on contact nodes: median 0.0 deg, max 13.0 deg
+                  Frenet form on the 20 contact nodes with kappa > 2e-03 1/mm at j-2..j+2 (contact force there 5.2304 N by multipliers):
+                    normal part   -B(kappa'' + kappa^3/2 - kappa tau^2): 4.8936 N  vs normal part of the contact forces 4.8876 N (+0.12%)
+                    binormal part  B(2 kappa' tau + kappa tau'):        1.6166 N  vs binormal part of the contact forces 1.8226 N
+                    magnitude of (normal, binormal):                   5.2553 N  vs contact forces 5.2304 N (+0.48%)
+                    normal part alone vs full contact force: -6.44%; largest binormal share |f.b|/|f| of the line load on these nodes 0.447
+                  contact force on nodes where the Frenet form is not evaluated (kappa too small): 0.6306 N of 5.8609 N
+      planar    : vector form f = B y'''' + 3/2 B (kappa^2 y')' on 50 of 50 contact nodes: 6.2307 N vs multipliers 6.2319 N (-0.02%)
+                  angle between contact force and line-load vector on contact nodes: median 0.0 deg, max 1.8 deg
+                  Frenet form on the 22 contact nodes with kappa > 2e-03 1/mm at j-2..j+2 (contact force there 5.6595 N by multipliers):
+                    normal part   -B(kappa'' + kappa^3/2 - kappa tau^2): 5.6599 N  vs normal part of the contact forces 5.6641 N (-0.07%)
+                    binormal part  B(2 kappa' tau + kappa tau'):        0.0000 N  vs binormal part of the contact forces 0.0000 N
+                    magnitude of (normal, binormal):                   5.6599 N  vs contact forces 5.6595 N (+0.01%)
+                    normal part alone vs full contact force: +0.01%; largest binormal share |f.b|/|f| of the line load on these nodes 0.000
+                  contact force on nodes where the Frenet form is not evaluated (kappa too small): 0.5724 N of 6.2319 N
+      per arc (non-planar, vector form):
+        s =   44.8 to   54.4 mm   multipliers 2.003 N   line load 2.005 N
+        s =  118.4 to  134.4 mm   multipliers 2.698 N   line load 2.701 N
+        s =  182.4 to  184.0 mm   multipliers 0.530 N   line load 0.535 N
+        s =  220.8 to  276.8 mm   multipliers 0.631 N   line load 0.631 N
+  (e) KKT diagnostics, non-planar, rigid vessel
+    LICQ: 237 active rows, 594 unknowns, smallest singular value 1.635e-02 (condition 8.6e+01)
+    Hessian of the Lagrangian by finite differences of the exact gradient: asymmetry 1.1e-09, difference from the analytic Hessian 1.5e-09
+    second order: min eigenvalue of the reduced Hessian 4.858e-04 N/mm (strongly active, dim 362), 4.858e-04 N/mm (all active, dim 357)
+    largest eigenvalue of the reduced Hessian 1.90e+04 N/mm
+    softest mode: 100% of its norm on the wire, largest wire amplitude at s = 316.8 mm (direction 0.01 along the wire), largest vessel amplitude at s_v = NaN mm
+    box bounds: smallest margin 13.78 mm
+    vessel polygon: min local radius 26.6 mm, min half-chord 14.5 mm, delta_max 9.56 mm
+    contacts project to sigma in [52.2, 325.2] of [0, 396.8] mm, opposite-wall pairs 0
+  (e) KKT diagnostics, non-planar, deformable vessel
+    LICQ: 265 active rows, 1335 unknowns, smallest singular value 1.476e-02 (condition 9.6e+01)
+    Hessian of the Lagrangian by finite differences of the exact gradient: asymmetry 1.0e-09, difference from the analytic Hessian 1.5e-09
+    second order: min eigenvalue of the reduced Hessian 4.514e-04 N/mm (strongly active, dim 1079), 4.567e-04 N/mm (all active, dim 1070)
+    largest eigenvalue of the reduced Hessian 1.90e+04 N/mm
+    softest mode: 100% of its norm on the wire, largest wire amplitude at s = 316.8 mm (direction 0.02 along the wire), largest vessel amplitude at s_v = 264.0 mm
+    box bounds: smallest margin 7.15 mm
+    vessel polygon: min local radius 31.3 mm, min half-chord 14.6 mm, delta_max 9.56 mm
+    contacts project to sigma in [45.8, 292.8] of [0, 389.8] mm, opposite-wall pairs 0
+
+5. Clock shift of a twist-free wall target, a = (0,0,1)
+   max |a.t| on the centerline: State 1 0.436, State 2 0.480 (a is never parallel to the centerline)
+   convention: 12 o'clock = projection of a, clockwise looking downstream (sheath toward aorta);
+   the target is at 12 o'clock at the first vessel node and carried by the Bishop frame (no twist)
+   s (mm)  segment  State 1          State 2          shift (deg)  shift (clock min)  shift from rate integrals (deg)  difference (deg)
+       50  iliac     18.82 deg 12:38   21.53 deg 12:43      +2.711             +5.42                          +2.711      +3.4e-05
+      100  iliac     32.55 deg  1:05   32.08 deg  1:04      -0.472             -0.94                          -0.472      -3.3e-05
+      150  iliac     49.28 deg  1:39   42.25 deg  1:25      -7.025            -14.05                          -7.025      +1.1e-04
+      200  aorta     65.11 deg  2:10   63.78 deg  2:08      -1.330             -2.66                          -1.330      +5.9e-05
+      250  aorta     65.11 deg  2:10   64.01 deg  2:08      -1.098             -2.20                          -1.098      +6.0e-05
+      300  aorta     65.11 deg  2:10   64.17 deg  2:08      -0.940             -1.88                          -0.940      +6.0e-05
+   State 1 clock angle from the rate integral vs the transported frame: max difference 5.83e-04 deg
+   (g) planar geometry: max |shift| 8.75e-29 deg (a = (0,0,1)), 1.41e-28 deg (a = (0,1,0))
+
+6. Timing (wall clock, s)
+   planar geometry:
+     rigid  B   291.0  rigid            flag 1    48 it    0.73 s
+     rigid  B  1849.0  rigid            flag 1    23 it    0.29 s
+     rigid  B  4856.6  rigid            flag 1    18 it    0.22 s
+     relax  B  4856.6  k 0.7985 N/mm    flag 2    43 it    3.27 s
+     relax  B  4856.6  k 0.2525 N/mm    flag 1    20 it    0.33 s
+     relax  B  4856.6  k 0.07985 N/mm   flag 1    23 it    0.94 s
+     relax  B  4856.6  k 0.02525 N/mm   flag 1    19 it    0.76 s
+     continuation total 6.6 s
+   non-planar:
+     rigid  B   291.0  rigid            flag 1    42 it    0.52 s
+     rigid  B  1849.0  rigid            flag 1    24 it    0.31 s
+     rigid  B  4856.6  rigid            flag 1    17 it    0.22 s
+     relax  B  4856.6  k 0.7994 N/mm    flag 1    18 it    0.30 s
+     relax  B  4856.6  k 0.2528 N/mm    flag 1    21 it    0.35 s
+     relax  B  4856.6  k 0.07994 N/mm   flag 1    26 it    1.01 s
+     relax  B  4856.6  k 0.02528 N/mm   flag 1    22 it    0.99 s
+     continuation total 3.7 s
+   total run 27.6 s
+
+saved results/run3d.mat, results/run3d_summary.json, results/run3d.log
+done

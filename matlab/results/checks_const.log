@@ -1,0 +1,34 @@
+09-Nov-2026 10:34:26   MATLAB 25.2.0.3150157 (R2025b) Update 4   part const
+Constant radius 6 mm, rigid vessel: flag 1, E = 142.4309, wall reaction 10.473 N (line load with H = 0: 10.467 N)
+    s =   44.7 to   44.7 mm   inner  4.333 N
+    s =  126.2 to  126.2 mm   inner  4.117 N
+    s =  195.0 to  203.0 mm   aorta  2.024 N
+    peak displacement 0.0031 mm at s_v = 47.9 mm, |H| after the first edge < 0.0635 N, tip force 0.0000 N
+    last contact s = 203.0 mm, straight continuation stays in the lumen up to s = 375.7 mm
+    strict complementarity: 25 active nodes, smallest active force 7.530e-08 N, 18 active with force <= 1e-6 N
+      active nodes with force below 1e-4, 1e-3, 1e-2 N: 19, 19, 19
+      largest active gap 5.33e-03 mm, smallest inactive gap 5.62e-03 mm, largest inactive force 7.1e-08 N
+    nearest segment: brute force agrees 1, margin to the nearest segment more than pi*delta_max away in arc length 9.63 mm (contacts), 9.55 mm (all nodes)
+      contact foot points at a vertex 0, smallest distance of a contact foot point to a vertex 0.204 mm
+    second order in H^1: smallest eigenvalue 4.7380e-04 N/mm, largest 4.639e+03 N/mm (||Z'Z - I|| = 7.4e-15)
+      force threshold 1e-06 N: 7 strongly active contacts, subspace dimension 663, smallest H^1 eigenvalue 4.7380e-04 N/mm
+      force threshold 1e-04 N: 6 strongly active contacts, subspace dimension 664, smallest H^1 eigenvalue 4.4628e-04 N/mm
+      force threshold 1e-03 N: 6 strongly active contacts, subspace dimension 664, smallest H^1 eigenvalue 4.4628e-04 N/mm
+      force threshold 1e-02 N: 6 strongly active contacts, subspace dimension 664, smallest H^1 eigenvalue 4.4628e-04 N/mm
+Constant radius 6 mm, deformable vessel: flag 1, E = 118.5675, wall reaction 6.486 N (line load with H = 0: 6.478 N)
+    s =   36.8 to   49.5 mm   inner  2.082 N
+    s =  111.9 to  129.4 mm   inner  3.179 N
+    s =  190.2 to  241.3 mm   aorta  1.225 N
+    peak displacement 5.8661 mm at s_v = 135.8 mm, |H| after the first edge < 0.0191 N, tip force 0.0000 N
+    last contact s = 241.3 mm, straight continuation stays in the lumen up to s = 371.2 mm
+    strict complementarity: 58 active nodes, smallest active force 1.536e-08 N, 4 active with force <= 1e-6 N
+      active nodes with force below 1e-4, 1e-3, 1e-2 N: 4, 4, 5
+      largest active gap 5.21e-03 mm, smallest inactive gap 7.10e-03 mm, largest inactive force 1.1e-08 N
+    nearest segment: brute force agrees 1, margin to the nearest segment more than pi*delta_max away in arc length 7.81 mm (contacts), 7.50 mm (all nodes)
+      contact foot points at a vertex 0, smallest distance of a contact foot point to a vertex 0.057 mm
+    second order in H^1: smallest eigenvalue 1.0661e-03 N/mm, largest 4.633e+03 N/mm (||Z'Z - I|| = 1.3e-14)
+      force threshold 1e-06 N: 54 strongly active contacts, subspace dimension 616, smallest H^1 eigenvalue 1.0661e-03 N/mm
+      force threshold 1e-04 N: 54 strongly active contacts, subspace dimension 616, smallest H^1 eigenvalue 1.0661e-03 N/mm
+      force threshold 1e-03 N: 54 strongly active contacts, subspace dimension 616, smallest H^1 eigenvalue 1.0661e-03 N/mm
+      force threshold 1e-02 N: 53 strongly active contacts, subspace dimension 617, smallest H^1 eigenvalue 1.0661e-03 N/mm
+done

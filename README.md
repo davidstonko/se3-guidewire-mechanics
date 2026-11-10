@@ -4,7 +4,7 @@ MATLAB code for the computations in
 
 > Stonko DP. *Solving the Wire Stiffening Problem: Guidewire-vessel mechanics on SE(3).* Manuscript submitted to Proceedings of the Royal Society A, 2026.
 
-A stiff guidewire is clamped at the sheath in the groin, its tip floats free in the descending thoracic aorta, and it must stay inside the lumen of an elastic vessel held by surrounding tissue. The code computes the equilibrium of wire and vessel on a synthetic planar test vessel and checks it against the analytical results of the paper. It reproduces every number in Section 7 and the data in Figures 4 to 6.
+A stiff guidewire is clamped at the sheath in the groin, its tip floats free in the descending thoracic aorta, and it must stay inside the lumen of an elastic vessel held by surrounding tissue. The code computes the equilibrium of wire and vessel on a synthetic planar test vessel and checks it against the analytical results of the paper. It reproduces every number in Section 7 and the data in Figures 4 to 7. Sections 7.1 to 7.4 use the planar code in `matlab/`. Sections 7.5 to 7.7 (constant lumen radius, mesh refinement, a non-planar vessel and the clock position of a wall target) use `matlab/run_checks_v17.m` and the spatial code in `matlab/threed/`.
 
 All computation is in MATLAB. Python is used only to draw figures from the saved MATLAB results.
 
@@ -56,9 +56,42 @@ The output of the run used for the paper is in [`matlab/results/run_demos.log`](
 | Section 7: discrete thickness of the deformed vessel | min local radius 18.1 mm, min half-chord 14.6 mm, against delta at most 9.56 mm | `kkt_diagnostics`, log |
 | Section 7: conditions of Proposition 5.3 | contacts project inside the vessel, no contacts on opposite walls of one cross-section | `kkt_diagnostics`, log |
 | Section 7.4, Figure 6: other wire lengths | E = 114.1455 (90, 150, 180 mm), 114.1432 and 0.20 N tip force (60 mm) | `length` entries |
-| Section 7.4: tip 30 and 0 mm into the aorta | not converged (exit flag 2), tip at the aortic wall just past the widening | `length` entries for 30 and 0 mm, log |
-| Section 7.4, Figure 6: spread of the displacement curves | below 1e-5 mm (tip 90, 150, 180 mm), 0.048 mm (tip 60 mm) | log |
-| Section 7.3: contacts where the lumen widens | 0.207 N (deformable), 2.126 N (rigid) | `kkt_diagnostics`, log |
+| Section 7: tip on the taper | not converged (exit flag 2) | `length` entries for 30 and 0 mm |
+
+## Sections 7.5 to 7.7
+
+```matlab
+cd matlab
+run_checks_v17('kkt')              % strict complementarity, nearest segment, second order in H^1
+run_checks_v17('const')            % the planar problem with a constant lumen radius of 6 mm
+run_checks_v17('nested', [], 6)    % constant radius at h = 1.6, 0.8 and 0.4 mm (Table 5), about 4 minutes
+cd threed
+run_demos_3d(30, 6)                % non-planar vessel, constant radius (Section 7.6, Table 6, Table 7)
+run_demos_3d()                     % the same with the widening lumen
+soft_mode3d(30, 6)                 % the softest admissible mode of the non-planar equilibrium
+```
+
+Then `python3 fig_3d_paper.py` in `matlab/threed/` draws Figure 7 from `results/run3d_R6.mat`.
+
+| Paper | Value | Source |
+|---|---|---|
+| Table 5: wall reaction at h = 1.6, 0.8, 0.4 mm | 6.486, 6.538, 6.562 N | `results/checks_nested_R6.log` |
+| Table 5: line load with H = 0 | 6.478, 6.535, 6.562 N | same |
+| Table 5: largest material force after the first edge | 0.0191, 0.0066, 0.0019 N | same |
+| Section 7.5: smallest H^1 eigenvalue of the reduced Hessian | 1.07e-3, 1.22e-3, 4.98e-4 N/mm | same |
+| Section 7.5: widening lumen at h = 0.8 mm | no first-order certificate | `results/checks_nested.log`, `results/batch_2026-11-10_console.txt` |
+| Section 7.6: spatial code on the planar geometry | wall reaction 6.472 N, peak 5.871 mm, rigid 10.485 N | `threed/results/run3d_R6.log`, part 3 |
+| Section 7.6, Table 6: non-planar vessel | wall reaction 5.879 N (rigid 8.283 N), peak 4.901 mm | same, part 4 |
+| Section 7.6: material force | below 0.0155 N, against 0.967 N for B kappa^2/2 | same |
+| Section 7.6: line load, vector form, against multipliers | 5.8765 against 5.8792 N | same |
+| Section 7.6: softest mode | 4.65e-4 N/mm, 99.7% in the aorta, 88% around the lumen axis | `threed/results/soft_mode3d_A30_R6.log` |
+| Section 7.7, Table 7: clock shift | +2.81, -0.48, -6.86, -1.91, -0.24, -0.89 degrees | `threed/results/run3d_R6.log`, part 5 |
+
+Notes on these runs (10 November 2026):
+
+- The planar code uses a geometrically exact vessel (turning-angle energy). The spatial code uses the geometrically linear beam, `B_v/2 sum |u_{i+1} - 2u_i + u_{i-1}|^2/h^3`, and the curvature-binormal wire energy of Bergou et al. The comparison on the planar geometry therefore compares two vessel models as well as two codes.
+- `run_checks_v17('nested')` starts each finer mesh from the interpolated solution of the coarser one and accepts only solves that end with the first-order certificate (exit flag 1). With a constant radius this works at 0.8 and 0.4 mm. With the widening lumen the solve at 0.8 mm stops on the step tolerance, by continuation (`continuation_solve_strict`, `mesh_strict`) and from the coarser solution, and that problem is reported at 1.6 mm only.
+- Calls that take longer than about a minute should be run with `matlab -batch`.
 
 ## Files
 
@@ -79,9 +112,16 @@ The output of the run used for the paper is in [`matlab/results/run_demos.log`](
 | `matlab/postprocess.m` | Contact forces, line load with H = 0, material force H from the multipliers, contact arcs |
 | `matlab/check_derivatives.m` | Finite-difference check of every derivative |
 | `matlab/audit_solution.m` | Independent checks of a saved equilibrium: feasibility, inactive box bounds, the signs required by Corollary 5.6 on each contact arc, and the force balance |
+| `matlab/run_checks_v17.m` | Further checks of the planar computation: strict complementarity, the second-order condition in H^1, constant radius, mesh refinement |
+| `matlab/continuation_solve_strict.m`, `mesh_strict.m` | Continuation that accepts only exit flag 1, used to document the stall at h = 0.8 mm with the widening lumen |
+| `matlab/run_logged.m` | Run a function and keep the command-window output in a file |
+| `matlab/threed/run_demos_3d.m` | Every spatial computation of Sections 7.6 and 7.7 |
+| `matlab/threed/geometry3d.m`, `build_problem3d.m`, `objective3d.m`, `wire_bend3d.m`, `contact_terms3d.m`, `constraints3d.m`, `lagrangian_*3d.m`, `solve_equilibrium3d.m`, `continuation_solve3d.m` | The spatial counterparts of the planar files |
+| `matlab/threed/postprocess3d.m`, `kkt_diagnostics3d.m`, `clock_shift3d.m`, `soft_mode3d.m`, `check_derivatives3d.m` | Forces, line load in vector and Frenet form, KKT diagnostics, clock shift (Proposition 2.4), softest mode, derivative check |
+| `matlab/threed/fig_3d_paper.py`, `fig_3d.py` | Figure 7, and working figures |
 | `matlab/results/` | Saved equilibria, `summary.json` and the run log |
 | `figures/python/` | Drawing scripts for Figures 4 to 6 |
-| `figures/*.pdf` | Figures 1 to 6 as they appear in the paper. Figures 1 to 3 are schematics. |
+| `figures/*.pdf` | Figures 1 to 7 as they appear in the paper. Figures 1 to 3 are schematics. |
 
 ## The discrete problem
 

@@ -1,0 +1,32 @@
+10-Nov-2026 10:39:30   MATLAB 25.2.0.3150157 (R2025b) Update 4   part nested
+h = 1.60 mm (actual 1.5981), 242 vessel nodes
+  wall time 13 s
+  rigid vessel: wall reaction 11.262 N, contacts:
+    s =   44.7 to   44.7 mm   inner  4.317 N
+    s =  126.2 to  127.8 mm   inner  4.567 N
+    s =  177.4 to  177.4 mm   aorta  2.126 N
+    s =  250.9 to  270.1 mm   aorta  0.252 N
+  deformable vessel: flag 1, E = 114.1455, wall reaction 6.210 N (line load with H = 0: 6.222 N), contacts:
+    s =   36.8 to   49.5 mm   inner  2.010 N
+    s =  110.3 to  129.4 mm   inner  3.083 N
+    s =  169.4 to  174.2 mm   outer  0.207 N
+    s =  203.0 to  254.1 mm   aorta  0.910 N
+  peak 5.7305 mm at s_v = 135.8, first bend 4.088, aorta 1.134, RMS 1.861 mm
+  |H| after the first edge < 0.0194 N (first edge -0.4625 N), kappa at exit -0.0197 1/mm, max B kappa^2/2 1.133 N
+  last contact s = 254.1 mm, straight continuation to s = 373.8 mm
+    strict complementarity: 63 active nodes, smallest active force 1.222e-06 N, 0 active with force <= 1e-6 N
+      active nodes with force below 1e-4, 1e-3, 1e-2 N: 5, 6, 8
+      largest active gap 6.55e-03 mm, smallest inactive gap 1.25e-02 mm, largest inactive force 6.4e-07 N
+    nearest segment: brute force agrees 1, margin to the nearest segment more than pi*delta_max away in arc length 17.42 mm (contacts), 17.42 mm (all nodes)
+      contact foot points at a vertex 0, smallest distance of a contact foot point to a vertex 0.012 mm
+    second order in H^1: smallest eigenvalue 2.3662e-03 N/mm, largest 4.632e+03 N/mm (||Z'Z - I|| = 1.4e-14)
+      force threshold 1e-06 N: 63 strongly active contacts, subspace dimension 607, smallest H^1 eigenvalue 2.3662e-03 N/mm
+      force threshold 1e-04 N: 58 strongly active contacts, subspace dimension 612, smallest H^1 eigenvalue 1.9455e-03 N/mm
+      force threshold 1e-03 N: 57 strongly active contacts, subspace dimension 613, smallest H^1 eigenvalue 1.9455e-03 N/mm
+      force threshold 1e-02 N: 55 strongly active contacts, subspace dimension 615, smallest H^1 eigenvalue 1.7819e-03 N/mm
+h = 0.80 mm (actual 0.8007), 482 vessel nodes
+  rigid stage from the coarser mesh: flag 1, first-order optimality 3.2e-08, 1 solves
+  deformable from the coarser mesh: flag 2, first-order optimality 5.0e-01, 5 solves
+  wall time 54 s
+  NOT CONVERGED to the first-order certificate at this mesh. Stopping.
+done

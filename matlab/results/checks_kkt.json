@@ -1,0 +1,144 @@
+{
+  "rigid": {
+    "n_unknowns": 862,
+    "n_active_rows": 235,
+    "n_contacts": 43,
+    "n_strong": 43,
+    "licq_smin": 0.017047511479275312,
+    "licq_cond": 82.951193983539355,
+    "dim_null_strong": 627,
+    "dim_null_active": 627,
+    "min_eig_strong": 0.050392938274966173,
+    "min_eig_active": 0.050392938274966173,
+    "max_eig_strong": 19002.461839929714,
+    "box_margin": 11.230018193272173,
+    "min_local_radius": 22.566716959980379,
+    "min_half_chord": 14.344840560247111,
+    "delta_max": 9.5555,
+    "contact_sigma_range": [
+      47.724704621053284,
+      315.16539235423613
+    ],
+    "widening_nodes": 1,
+    "widening_force": 2.1259967370428177,
+    "widening_s": [
+      177.38731251877712,
+      177.38731251877712
+    ],
+    "vessel_length": 385.12777358194404,
+    "opposite_wall_pairs": 0,
+    "sc_min_force_active": 1.2449612354520302E-6,
+    "sc_weak_active": 0,
+    "sc_max_gap_active": 0.0064280678296402272,
+    "sc_min_gap_inactive": 0.010520212169524257,
+    "sc_max_force_inactive": 7.6085991547609134E-7,
+    "sc_n_below": [
+      34,
+      36,
+      36
+    ],
+    "seg_agree": true,
+    "seg_margin_active": 20.840749595179933,
+    "seg_margin_all": 19.997378945420156,
+    "foot_at_vertex_active": 0,
+    "foot_min_dist_to_vertex": 0.2149697722798842,
+    "so_threshold": [
+      1E-6,
+      0.0001,
+      0.001,
+      0.01
+    ],
+    "so_n_strong": [
+      43,
+      9,
+      7,
+      7
+    ],
+    "so_dim": [
+      627,
+      661,
+      663,
+      663
+    ],
+    "so_gen_min_eig": [
+      0.031483225249557704,
+      0.010697769272527125,
+      0.0082449293213222273,
+      0.0082449293213222273
+    ],
+    "orth_err": 9.117007000261901E-15,
+    "gen_min_eig": 0.031483225249557704,
+    "gen_max_eig": 4636.3892756154064
+  },
+  "base": {
+    "n_unknowns": 862,
+    "n_active_rows": 255,
+    "n_contacts": 63,
+    "n_strong": 63,
+    "licq_smin": 0.014756506393205575,
+    "licq_cond": 95.832194938797727,
+    "dim_null_strong": 607,
+    "dim_null_active": 607,
+    "min_eig_strong": 0.00379104808170904,
+    "min_eig_active": 0.00379104808170904,
+    "max_eig_strong": 18976.071175911591,
+    "box_margin": 4.7552711731612476,
+    "min_local_radius": 18.105483819188734,
+    "min_half_chord": 14.564560574766487,
+    "delta_max": 9.5555,
+    "contact_sigma_range": [
+      39.218236890264485,
+      268.0546491369451
+    ],
+    "widening_nodes": 4,
+    "widening_force": 0.20728602478119074,
+    "widening_s": [
+      169.39689303594932,
+      174.191144725646
+    ],
+    "vessel_length": 376.3990530563018,
+    "opposite_wall_pairs": 0,
+    "sc_min_force_active": 1.2219140096921417E-6,
+    "sc_weak_active": 0,
+    "sc_max_gap_active": 0.00654938371949676,
+    "sc_min_gap_inactive": 0.012471825215865096,
+    "sc_max_force_inactive": 6.4186474998199354E-7,
+    "sc_n_below": [
+      5,
+      6,
+      8
+    ],
+    "seg_agree": true,
+    "seg_margin_active": 17.418451165116373,
+    "seg_margin_all": 17.418451165116373,
+    "foot_at_vertex_active": 0,
+    "foot_min_dist_to_vertex": 0.011763025138204222,
+    "so_threshold": [
+      1E-6,
+      0.0001,
+      0.001,
+      0.01
+    ],
+    "so_n_strong": [
+      63,
+      58,
+      57,
+      55
+    ],
+    "so_dim": [
+      607,
+      612,
+      613,
+      615
+    ],
+    "so_gen_min_eig": [
+      0.0023661939633863819,
+      0.0019454615313032563,
+      0.0019454520565048501,
+      0.0017819142394377065
+    ],
+    "orth_err": 1.3587154827596446E-14,
+    "gen_min_eig": 0.0023661939633863819,
+    "gen_max_eig": 4631.8771457618341
+  }
+}

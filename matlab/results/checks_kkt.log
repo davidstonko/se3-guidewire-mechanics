@@ -1,0 +1,24 @@
+09-Nov-2026 10:34:13   MATLAB 25.2.0.3150157 (R2025b) Update 4   part kkt
+Rigid vessel
+    strict complementarity: 43 active nodes, smallest active force 1.245e-06 N, 0 active with force <= 1e-6 N
+      active nodes with force below 1e-4, 1e-3, 1e-2 N: 34, 36, 36
+      largest active gap 6.43e-03 mm, smallest inactive gap 1.05e-02 mm, largest inactive force 7.6e-07 N
+    nearest segment: brute force agrees 1, margin to the nearest segment more than pi*delta_max away in arc length 20.84 mm (contacts), 20.00 mm (all nodes)
+      contact foot points at a vertex 0, smallest distance of a contact foot point to a vertex 0.215 mm
+    second order in H^1: smallest eigenvalue 3.1483e-02 N/mm, largest 4.636e+03 N/mm (||Z'Z - I|| = 9.1e-15)
+      force threshold 1e-06 N: 43 strongly active contacts, subspace dimension 627, smallest H^1 eigenvalue 3.1483e-02 N/mm
+      force threshold 1e-04 N: 9 strongly active contacts, subspace dimension 661, smallest H^1 eigenvalue 1.0698e-02 N/mm
+      force threshold 1e-03 N: 7 strongly active contacts, subspace dimension 663, smallest H^1 eigenvalue 8.2449e-03 N/mm
+      force threshold 1e-02 N: 7 strongly active contacts, subspace dimension 663, smallest H^1 eigenvalue 8.2449e-03 N/mm
+Deformable vessel
+    strict complementarity: 63 active nodes, smallest active force 1.222e-06 N, 0 active with force <= 1e-6 N
+      active nodes with force below 1e-4, 1e-3, 1e-2 N: 5, 6, 8
+      largest active gap 6.55e-03 mm, smallest inactive gap 1.25e-02 mm, largest inactive force 6.4e-07 N
+    nearest segment: brute force agrees 1, margin to the nearest segment more than pi*delta_max away in arc length 17.42 mm (contacts), 17.42 mm (all nodes)
+      contact foot points at a vertex 0, smallest distance of a contact foot point to a vertex 0.012 mm
+    second order in H^1: smallest eigenvalue 2.3662e-03 N/mm, largest 4.632e+03 N/mm (||Z'Z - I|| = 1.4e-14)
+      force threshold 1e-06 N: 63 strongly active contacts, subspace dimension 607, smallest H^1 eigenvalue 2.3662e-03 N/mm
+      force threshold 1e-04 N: 58 strongly active contacts, subspace dimension 612, smallest H^1 eigenvalue 1.9455e-03 N/mm
+      force threshold 1e-03 N: 57 strongly active contacts, subspace dimension 613, smallest H^1 eigenvalue 1.9455e-03 N/mm
+      force threshold 1e-02 N: 55 strongly active contacts, subspace dimension 615, smallest H^1 eigenvalue 1.7819e-03 N/mm
+done
